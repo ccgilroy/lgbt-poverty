@@ -1,0 +1,40 @@
+---
+title: "Visualizing uncertainty about LGBT poverty"
+author: "Connor Gilroy"
+date: "`r Sys.Date()`"
+output: 
+  html_document: 
+    theme: paper
+---
+
+<style type="text/css">
+.main-container {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+
+M.V. Lee Badgett, Soon Kyu Choi, and Bianca D.M. Wilson released a [report](https://williamsinstitute.law.ucla.edu/experts/soon-kyu-choi/lgbt-poverty-us/) for the Williams Institute about LGBT poverty in the United States. They used data from the Behavioral Risk Factor Surveillance System (BRFSS), a major state-by-state health-related survey, to derive population estimates about LGBT and cis-straight poverty rates.
+
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+source("lgbt_poverty.R")
+```
+
+Using the 95% confidence intervals from p.39 of the report, I added error bars to Figure 2 on p.8: 
+
+```{r echo=FALSE, fig.align='center'}
+fig2_version1
+```
+
+I also tried confidence strips, using Claus Wilke's `ungeviz` package: 
+
+```{r echo=FALSE, fig.align='center'}
+fig2_version2
+```
+
+My sense is that this better conveys the *feeling* of uncertainty and how that differs between groups, but others just found it confusing. 
+
+More ideas and examples can be found in [Chapter 16](https://serialmentor.com/dataviz/visualizing-uncertainty.html), "Visualizing Uncertainty," of Wilke's book on data visualization.
+ 
+The code and data for this project can be found in [this GitHub repository](https://github.com/ccgilroy/lgbt-poverty).

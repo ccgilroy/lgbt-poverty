@@ -67,7 +67,7 @@ fig2_version1 <-
 fig2_version2 <-
   ggplot(fig2_data_plot, aes(y = SOGI, x = `%`)) +
   stat_confidence_density(aes(moe = ci95_high - `%`, fill = fig2_color), 
-                          height = .8, confidence = .95) +
+                          height = .6, confidence = .95) +
   scale_x_continuous(labels = function(x) scales::percent(x, scale = 1), 
                      limits = c(0, 35)) +
   scale_y_discrete(labels = scales::wrap_format(16)) +
