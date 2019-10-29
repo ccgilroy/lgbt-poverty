@@ -61,13 +61,23 @@ fig2_version1 <-
        subtitle = "means and 95% confidence intervals (source: BRFSS, 2014-2017)",
        caption = "Connor Gilroy, University of Washington\nbased on Figure 2 in Badgett et al. 2019, \"LGBT Poverty in the United States\"") +
   theme_minimal() +
-  theme(panel.grid.major.x = element_blank())
+  theme(panel.grid.major.x = element_blank(), 
+        plot.caption = element_text(face = "italic"))
 
 # version 2: confidence strips
 fig2_version2 <-
   ggplot(fig2_data_plot, aes(y = SOGI, x = `%`)) +
   stat_confidence_density(aes(moe = ci95_high - `%`, fill = fig2_color), 
-                          height = .6, confidence = .95) +
+                          height = .6, confidence = .95) + 
+  geom_segment(
+    aes(
+      x = `%`, xend = `%`,
+      y = as.integer(SOGI) - 0.30,
+      yend = as.integer(SOGI) + 0.30
+    ),
+    size = 1, color = "white", alpha = .9, 
+    data = function(x) filter(x, !str_detect(SOGI, "straight"))
+  ) +
   scale_x_continuous(labels = function(x) scales::percent(x, scale = 1), 
                      limits = c(0, 35)) +
   scale_y_discrete(labels = scales::wrap_format(16)) +
@@ -78,7 +88,8 @@ fig2_version2 <-
        subtitle = "confidence strips based on 95% CI (source: BRFSS, 2014-2017)",
        caption = "Connor Gilroy, University of Washington\nbased on Figure 2 in Badgett et al. 2019, \"LGBT Poverty in the United States\"") +
   theme_minimal() +
-  theme(panel.grid.major.x = element_blank())
+  theme(panel.grid.major.x = element_blank(), 
+        plot.caption = element_text(face = "italic")) 
 
 # save figures
 ggsave(filename = "fig2_barchart.png", plot = fig2_version1, 
